@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sub-manager",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  // 首次 `wrangler deploy` 时会自动在你的账户下创建这个 D1 数据库（automatic provisioning）。
+  // 如果你手动创建了数据库，也可以在这里补上 "database_id"。
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "sub-manager"
+    }
+  ],
+  // 每小时运行一次；到了设置页里的推送时间（按设置的时区）才会真正发送提醒。
+  "triggers": {
+    "crons": ["7 * * * *"]
+  },
+  "observability": {
+    "enabled": true
+  }
+}
