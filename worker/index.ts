@@ -73,6 +73,9 @@ app.onError((err, c) => {
 });
 
 app.use("*", async (c, next) => {
+  if (!c.env.DB) {
+    throw new HttpError(500, "Worker 没有绑定 D1 数据库：请在 Worker 的 Settings → Bindings 里添加 D1 绑定，变量名填 DB");
+  }
   await ensureSchema(c.env.DB);
   await next();
   c.header("Cache-Control", "no-store");
