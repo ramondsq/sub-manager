@@ -68,7 +68,8 @@ app.onError((err, c) => {
   // 来自 Hono 中间件（例如 csrf 拦截跨站请求）
   if (err instanceof HTTPException) return c.json({ error: err.status === 403 ? "请求被拒绝" : err.message }, err.status);
   console.error(err);
-  return c.json({ error: "服务器出错了，请稍后再试" }, 500);
+  // 带上具体原因，方便排查（例如数据库没有绑定、D1 报错）
+  return c.json({ error: `服务器出错了：${err instanceof Error ? err.message : String(err)}` }, 500);
 });
 
 app.use("*", async (c, next) => {
