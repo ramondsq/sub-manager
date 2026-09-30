@@ -12,7 +12,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "sub-manager"
+      "database_name": "sub-manager",
+      "database_id": "6d126218-526e-45cb-be46-c19fefd8acc5"
     }
   ],
   // 每小时运行一次；到了设置页里的推送时间（按设置的时区）才会真正发送提醒。
